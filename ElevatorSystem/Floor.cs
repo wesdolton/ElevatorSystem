@@ -9,7 +9,7 @@ namespace ElevatorSystem
     public class Floor
     {
         public int Level { get; }
-        public List<Passenger> Passengers { get; } = new List<Passenger>();
+        public virtual List<Passenger> Passengers { get; } = new List<Passenger>();
 
         public Floor(int level)
         {

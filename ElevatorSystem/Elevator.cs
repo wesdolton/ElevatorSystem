@@ -11,7 +11,7 @@ namespace ElevatorSystem
         public string Name { get; }
         public int CurrentFloor { get; set; }
         public Direction Direction { get; set; }
-        public List<Passenger> passengers { get; } = new List<Passenger>();
+        public List<Passenger> Passengers { get; } = new List<Passenger>();
         public Queue<(int floor, Direction direction)> Requests { get; } = new Queue<(int floor, Direction direction)>();
         public int MaxWeight { get; }
         public Elevator( string name, int maxWeight)
@@ -36,37 +36,37 @@ namespace ElevatorSystem
             PickUpPassengers(targetDirection, floors[targetFloor]);
 
             CloseDoors();
-            Direction = targetDirection;
+            this.Direction = targetDirection;
         }
         private void MoveToFloor(int targetFloor)
         {
-            if (targetFloor > CurrentFloor)
+            if (targetFloor > this.CurrentFloor)
                 Console.WriteLine($"{Name} moving up to floor {targetFloor}...");
-            else if (targetFloor < CurrentFloor)
+            else if (targetFloor < this.CurrentFloor)
                 Console.WriteLine($"{Name} moving down to floor {targetFloor}...");
 
-            Thread.Sleep(Math.Abs(targetFloor - CurrentFloor) * 1000); // Simulate travel time
-            CurrentFloor = targetFloor;
+            Thread.Sleep(Math.Abs(targetFloor - this.CurrentFloor) * 1000); // Simulate travel time
+            this.CurrentFloor = targetFloor;
         }
         private void OpenDoors()
         {
-            Console.WriteLine($"{Name} opening doors at floor {CurrentFloor}...");
+            Console.WriteLine($"{Name} opening doors at floor {this.CurrentFloor}...");
             Thread.Sleep(1000); // Simulate door opening time
         }
         private void CloseDoors()
         {
-            Console.WriteLine($"{Name} closing doors at floor {CurrentFloor}...");
+            Console.WriteLine($"{Name} closing doors at floor {this.CurrentFloor}...");
             Thread.Sleep(1000); // Simulate door closing time
         }
 
         private void PickUpPassengers(Direction direction, Floor floor)
         {
-            var passengersToPickUp = floor.Passengers.Where(p => p.TargetFloor * (int)direction > CurrentFloor * (int)direction).ToList();
+            var passengersToPickUp = floor.Passengers.Where(p => p.TargetFloor * (int)direction > this.CurrentFloor * (int)direction).ToList();
 
             foreach (var passenger in passengersToPickUp)
             {
-                Console.WriteLine($"{Name} picking up passenger {passenger.Name} at floor {CurrentFloor}...");
-                Passengers.Add(passenger);
+                Console.WriteLine($"{Name} picking up passenger {passenger.Name} at floor {this.CurrentFloor}...");
+                this.Passengers.Add(passenger);
             }
 
             floor.Passengers.RemoveAll(p => passengersToPickUp.Contains(p));
@@ -74,7 +74,7 @@ namespace ElevatorSystem
 
         public string GetStatus()
         {
-            return $"{Name} - Floor: {CurrentFloor}, Direction: {Direction}, Passengers: {Passengers.Count}";
+            return $"{Name} - Floor: {this.CurrentFloor}, Direction: {this.Direction}, Passengers: {this.Passengers.Count}";
         }
 
     }
