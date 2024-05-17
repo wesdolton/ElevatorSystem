@@ -56,8 +56,11 @@ namespace ElevatorSystem.NTests
 
             // Assert
             // Verify that passengers are picked up by the elevator
-            Assert.AreEqual(2, elevator.Passengers.Count, "Unexpected number of passengers in the elevator.");
-            Assert.AreEqual(0, floor.Passengers.Count, "Passengers should have been picked up from the floor.");
+            //Assert.AreEqual(2, elevator.Passengers.Count, "Unexpected number of passengers in the elevator.");
+            //Assert.AreEqual(0, floor.Passengers.Count, "Passengers should have been picked up from the floor.");
+
+            Assert.That(elevator.Passengers.Count, Is.EqualTo(2));
+            Assert.That(floor.Passengers.Count, Is.EqualTo(0));
         }
     }
 }

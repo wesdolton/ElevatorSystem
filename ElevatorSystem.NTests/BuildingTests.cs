@@ -29,7 +29,8 @@ namespace ElevatorSystem.NTests
             building.CallElevator(floorNumber, numPassengers, direction);
 
             // Assert
-            Assert.AreEqual(numPassengers, building.GetFloor(floorNumber).Passengers.Count);
+            //Assert.AreEqual(numPassengers, building.GetFloor(floorNumber).Passengers.Count);
+            Assert.That(building.GetFloor(floorNumber).Passengers.Count, Is.EqualTo(numPassengers));
             Assert.IsTrue(building.HasPendingRequest(floorNumber));
         }
 
@@ -44,7 +45,8 @@ namespace ElevatorSystem.NTests
 
             // Assert
             Assert.IsNotNull(closestElevator);
-            Assert.AreEqual(0, closestElevator.CurrentFloor); // Both elevators start at floor 0 in our setup
+            //Assert.AreEqual(0, closestElevator.CurrentFloor); // Both elevators start at floor 0 in our setup
+            Assert.That(closestElevator.CurrentFloor, Is.EqualTo(0)); // Both elevators start at floor 0 in our setup
         }
     }
 }
