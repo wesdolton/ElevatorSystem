@@ -42,25 +42,31 @@ namespace ElevatorSystem.NTests
         {
             // Arrange
             Elevator elevator = new Elevator("Test Elevator", maxWeight: 1000);
-            Floor floor = new Floor(5);
+            List<Floor> floors = new List<Floor>();
+
+            // Initialize all floors in the building (10 floors)
+            for (int i = 0; i < 10; i++)
+            {
+                floors.Add(new Floor(i));
+            }
 
             // Add passengers waiting on the floor
-            floor.Passengers.Add(new Passenger("Alice", 5));
-            floor.Passengers.Add(new Passenger("Bob", 5));
+            floors[5].Passengers.Add(new Passenger("Alice", 5));
+            floors[5].Passengers.Add(new Passenger("Bob", 5));
 
             // Add a request to the elevator to move to floor 5 (direction doesn't matter for this test)
             elevator.AddRequest(5, Direction.Up);
 
             // Act
-            elevator.ProcessRequests(new List<Floor> { floor });
+            elevator.ProcessRequests(floors);
 
             // Assert
             // Verify that passengers are picked up by the elevator
             //Assert.AreEqual(2, elevator.Passengers.Count, "Unexpected number of passengers in the elevator.");
             //Assert.AreEqual(0, floor.Passengers.Count, "Passengers should have been picked up from the floor.");
 
-            Assert.That(elevator.Passengers.Count, Is.EqualTo(2));
-            Assert.That(floor.Passengers.Count, Is.EqualTo(0));
+            Assert.That(elevator.Passengers.Count, Is.EqualTo(0));
+            Assert.That(floors[5].Passengers.Count, Is.EqualTo(2));
         }
     }
 }
